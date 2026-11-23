@@ -1,6 +1,5 @@
 interface CardProps {
   title: string;
-  /** The TypeScript idea this card practises, shown as a code chip */
   tag?: string;
   children: React.ReactNode;
 }
