@@ -4,7 +4,7 @@ interface CardProps {
   children: React.ReactNode;
 }
 
-export default function Card({ title, tag, children }: CardProps) {
+export default function Card({ title, children }: CardProps) {
   return (
     <section className="card">
       <header className="card-head">

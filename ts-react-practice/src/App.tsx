@@ -2,6 +2,7 @@ import Button from "./components/Button";
 import Card from "./components/Card";
 import Counter from "./components/Counter";
 import NameForm from "./components/NameForm";
+import ReduxCounter from "./components/ReduxCounter";
 import UserList from "./components/UserList";
 
 export default function App() {
@@ -9,13 +10,18 @@ export default function App() {
     <main className="page">
       <header className="hero">
         <h1>
-          TypeScript- React
+          TypeScript-React 
         </h1>
+
       </header>
 
       <div className="grid">
         <Card title="Counter" tag="useState<number>(0)">
           <Counter />
+        </Card>
+
+        <Card title="Redux counter" tag="PayloadAction<number>">
+          <ReduxCounter />
         </Card>
 
         <Card title="Name form" tag="ChangeEvent · FormEvent">

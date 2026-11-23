@@ -9,24 +9,20 @@ export default function UserList() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const controller = new AbortController();
-
     async function loadUsers() {
       try {
-        const res = await fetch(USERS_URL, { signal: controller.signal });
+        const res = await fetch(USERS_URL);
         if (!res.ok) throw new Error(`Request failed (${res.status})`);
         const data: User[] = await res.json();
         setUsers(data);
       } catch (err) {
-        if (err instanceof DOMException && err.name === "AbortError") return;
         setError(err instanceof Error ? err.message : "Something went wrong");
       } finally {
-        if (!controller.signal.aborted) setLoading(false);
+        setLoading(false);
       }
     }
 
     loadUsers();
-    return () => controller.abort(); // cleanup when the component unmounts
   }, []);
 
   if (loading) return <p className="muted">Loading users…</p>;
@@ -37,7 +33,12 @@ export default function UserList() {
       {users.map((u) => (
         <li key={u.id}>
           <span className="avatar" aria-hidden="true">
-            {u.name.split(" ").filter((w) => /^[A-Za-z]/.test(w)).slice(0, 2).map((w) => w[0]).join("")}
+            {u.name
+              .split(" ")
+              .filter((w) => /^[A-Za-z]/.test(w))
+              .slice(0, 2)
+              .map((w) => w[0])
+              .join("")}
           </span>
           <div className="user-meta">
             <span className="user-name">{u.name}</span>
